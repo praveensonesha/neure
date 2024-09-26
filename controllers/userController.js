@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config(); 
 const {signUpUserService,loginUserService} = require('../services/userService.js');
-const  JWT_SECRET  = 'bitroot';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 const signUpUser = async(req,res)=>{
@@ -28,12 +29,9 @@ const loginUser = async (req, res) => {
     const payload = req.body;
     const { email, password } = payload;
     try {
-        const result = await loginUserService(payload); // Don't destructure here, as it's an array
-        
-        // Since result is an array, access the first element
-        const loginResult = result[0]; // Get the first (and only) object in the array
-
-        console.log('Result from service:', loginResult); // Log the result
+        const result = await loginUserService(payload);
+        const loginResult = result[0]; //getting the success from the array list
+        // console.log('Result from service:', loginResult); // Log the result
 
         if (loginResult.success === 1) {  // Check if login was successful
             const token = jwt.sign({ email, password }, JWT_SECRET, { expiresIn: '4h' });

@@ -21,7 +21,7 @@ const loginUserService = async (payload) => {
         console.log('Hashed Password from user:', hashedPassword); // Log for debugging
         payload.password = hashedPassword; // Replace plain password with hashed one
         const [[result]] = await db.query(`CALL spLogin(?)`, [JSON.stringify(payload)]);
-        console.log('Login result from DB:', result); // Log the result received from DB
+        // console.log('Login result from DB:', result); // Log the result received from DB
         return result; 
     } catch (error) {
         console.error("Error in loginUserService:", error);
