@@ -1,5 +1,6 @@
+require('dotenv').config(); 
 const jwt = require('jsonwebtoken');
-const JWT_SECRET  = 'bitroot';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['Authorization'];
@@ -15,7 +16,7 @@ const authenticateToken = (req, res, next) => {
             return res.status(403).send({ message: 'Invalid token!' });
         }
         req.user = decoded; 
-        console.log("token verified !");
+        console.log("Token verified !");
         next(); // Pass control to the next middleware or route handler
     });
 };

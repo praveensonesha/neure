@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config(); 
 const {signUpUserService,loginUserService} = require('../services/userService.js');
-const  JWT_SECRET  = 'bitroot';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 const signUpUser = async(req,res)=>{
